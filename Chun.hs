@@ -1,5 +1,7 @@
 import Graphics.UI.WX
 import Graphics.UI.WX.Menu
+import ChunOAuth
+import Data.ByteString.Char8
 
 main = start chun
 
@@ -8,6 +10,7 @@ chun = do
 	menubar <- myMenuBar
 	f <- frame [text := "Chun"]
 	p <- panel f [on paint := paintInitTweet]
+	tweetBtn <- button p [text := "tweet" , on command := tweet (pack "test")]
 	t <- timer f [interval := 10000 , on command := reloadTweet p]
 	set p [ on click := (\pt -> tweetClick p pt),
 			on clickRight := (\pt -> tweetMenu p pt)]
@@ -33,7 +36,6 @@ tweetMenu :: Panel () -> Point -> IO ()
 tweetMenu p pt = do
 	--clickされたツイートに対するメニューを開く
 	return ()
-
 
 --メニューバー
 myMenuBar = do
